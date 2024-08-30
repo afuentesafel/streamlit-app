@@ -21,7 +21,7 @@ def procesar_archivo(file):
         envio = row['Título del método de envío']
 
         # Filtros
-        rm = 'Delivery RM' in envio
+        rm = 'Delivery Región Metropolitana' in envio
         r5a = 'Delivery 5ta Región: Viña del Mar, Valparaíso, Concón, Quilpué y Villa Alemana' in envio
         r5b = 'Delivery 5ta Región: Hijuelas, La Calera, La Cruz, Nogales, Quillota, Limache, Olmué' in envio
         r6 = 'Delivery 6ta Región: San Francisco de Mostazal, Machalí, Rancagua, Codegua y Graneros' in envio
