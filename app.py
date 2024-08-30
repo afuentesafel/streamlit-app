@@ -46,12 +46,19 @@ st.title('Procesador de Pedidos')
 uploaded_file = st.file_uploader("Sube tu archivo CSV", type="csv")
 
 if uploaded_file is not None:
-    st.write("Procesando el archivo...")
-    excel_file = procesar_archivo(uploaded_file)
+    # Pedir la fecha de retiro al usuario
+    fecha_retiro = st.text_input("Ingresa la fecha de retiro (dd-mm-aaaa):")
     
-    st.download_button(
-        label="Descargar archivo procesado",
-        data=excel_file,
-        file_name="envio_procesado.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+    if fecha_retiro:
+        st.write("Procesando el archivo...")
+        excel_file = procesar_archivo(uploaded_file)
+        
+        # Configurar el nombre del archivo usando la fecha de retiro
+        nombre_archivo = f"envio_{fecha_retiro}.xlsx"
+        
+        st.download_button(
+            label="Descargar archivo procesado",
+            data=excel_file,
+            file_name=nombre_archivo,
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
