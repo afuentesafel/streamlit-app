@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import openpyxl
 from openpyxl import Workbook
+from io import BytesIO
 
 # Función para procesar el archivo CSV y generar el archivo Excel
 def procesar_archivo(file):
@@ -33,7 +34,7 @@ def procesar_archivo(file):
             ])
 
     # Guardar el archivo Excel en un objeto de bytes
-    output = st.io.BytesIO()
+    output = BytesIO()
     wb.save(output)
     output.seek(0)
     
