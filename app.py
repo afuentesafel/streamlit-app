@@ -60,6 +60,7 @@ st.markdown("""
     .button-container {
         display: flex;
         justify-content: center;
+        align-items: center;
         gap: 20px;
         margin-top: 20px;
     }
@@ -73,17 +74,15 @@ st.markdown("""
 # Título principal
 st.markdown("<div class='centered'><h1 style='color: #333;'>Apps Tienda Pauli</h1></div>", unsafe_allow_html=True)
 
-# Mostrar los botones "Generar Excel" y "Generar PDF"
+# Mostrar los botones "Generar Excel" y "Generar PDF" en un contenedor centrado
 st.markdown('<div class="centered"><div class="button-container">', unsafe_allow_html=True)
 
-# Usamos una sola columna para centrar ambos botones
-col1, col2 = st.columns([1, 1], gap="small")
-
-with col1:
-    if st.button("📊 Generar Excel", key="excel"):
-        st.session_state.generar_excel = True
+# Usamos `st.columns()` con un espacio vacío en los extremos para centrar los botones
+col1, col2, col3 = st.columns([2, 1, 2])
 
 with col2:
+    if st.button("📊 Generar Excel", key="excel"):
+        st.session_state.generar_excel = True
     st.button("📄 Generar PDF", key="pdf")  # Este botón no hace nada por ahora
 
 st.markdown('</div></div>', unsafe_allow_html=True)
