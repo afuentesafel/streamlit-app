@@ -47,27 +47,34 @@ if "generar_excel" not in st.session_state:
 # Configuración de la página
 st.set_page_config(page_title="Apps Tienda Pauli", layout="centered")
 
-# Título principal
-st.markdown("<h1 style='text-align: center; color: #333;'>Apps Tienda Pauli</h1>", unsafe_allow_html=True)
-
-# Centramos los botones en una sola fila con HTML y CSS
+# Centramos el título y los botones
 st.markdown("""
     <style>
+    .centered {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
     .button-container {
         display: flex;
         justify-content: center;
         gap: 20px;
+        margin-top: 20px;
     }
     .button-container button {
-        flex: 1;
         font-size: 18px;
         padding: 10px 20px;
     }
     </style>
     """, unsafe_allow_html=True)
 
+# Título principal
+st.markdown("<div class='centered'><h1 style='color: #333;'>Apps Tienda Pauli</h1></div>", unsafe_allow_html=True)
+
 # Mostrar los botones "Generar Excel" y "Generar PDF"
-st.markdown('<div class="button-container">', unsafe_allow_html=True)
+st.markdown('<div class="centered"><div class="button-container">', unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 
 with col1:
@@ -77,7 +84,7 @@ with col1:
 with col2:
     st.button("📄 Generar PDF", key="pdf")  # Este botón no hace nada por ahora
 
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('</div></div>', unsafe_allow_html=True)
 
 # Si se hizo clic en "Generar Excel"
 if st.session_state.generar_excel:
