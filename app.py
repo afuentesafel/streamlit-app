@@ -79,10 +79,9 @@ with col2:
 
 with col3:
     if st.button("🔄 Reiniciar proceso"):
-        # Restablecer el estado y recargar la página
+        # Restablecer el estado sin recargar
         st.session_state.generar_excel = False
         st.session_state.clear()  # Borrar todo el estado
-        st.experimental_rerun()  # Intentar recargar la aplicación
 
 st.markdown('</div>', unsafe_allow_html=True)
 
