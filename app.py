@@ -66,9 +66,9 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Mostrar los botones "Generar Excel", "Generar PDF", y "Reiniciar proceso"
+# Mostrar los botones "Generar Excel" y "Generar PDF"
 st.markdown('<div class="button-container">', unsafe_allow_html=True)
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 
 with col1:
     if st.button("📊 Generar Excel", key="excel"):
@@ -76,12 +76,6 @@ with col1:
 
 with col2:
     st.button("📄 Generar PDF", key="pdf")  # Este botón no hace nada por ahora
-
-with col3:
-    if st.button("🔄 Reiniciar proceso"):
-        # Restablecer el estado sin recargar
-        st.session_state.generar_excel = False
-        st.session_state.clear()  # Borrar todo el estado
 
 st.markdown('</div>', unsafe_allow_html=True)
 
