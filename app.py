@@ -46,17 +46,46 @@ def procesar_archivo(file):
     
     return output
 
-# Mostrar botones de "Generar Excel" y "Generar PDF"
-col1, col2 = st.columns(2)
+# Inicializar el estado de la sesión
+if "generar_excel" not in st.session_state:
+    st.session_state.generar_excel = False
+
+# Centramos los botones en una sola fila con HTML y CSS
+st.markdown("""
+    <style>
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    .button-container button {
+        flex: 1;
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# Mostrar los botones "Generar Excel", "Generar PDF", y "Reiniciar proceso"
+st.markdown('<div class="button-container">', unsafe_allow_html=True)
+col1, col2, col3 = st.columns(3)
 
 with col1:
-    generar_excel = st.button("📊 Generar Excel", key="excel")
+    if st.button("📊 Generar Excel", key="excel"):
+        st.session_state.generar_excel = True
 
 with col2:
-    generar_pdf = st.button("📄 Generar PDF", key="pdf")
+    st.button("📄 Generar PDF", key="pdf")  # Este botón no hace nada por ahora
 
-# Si se hace clic en "Generar Excel"
-if generar_excel:
+with col3:
+    if st.button("🔄 Reiniciar proceso"):
+        st.session_state.generar_excel = False
+        st.experimental_rerun()
+
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Si se hizo clic en "Generar Excel"
+if st.session_state.generar_excel:
     # Subir el archivo CSV
     uploaded_file = st.file_uploader("Sube tu archivo CSV", type="csv")
 
@@ -74,7 +103,3 @@ if generar_excel:
             file_name=nombre_archivo,
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-
-# Botón para reiniciar el proceso
-if st.button("🔄 Reiniciar proceso"):
-    st.experimental_rerun()
