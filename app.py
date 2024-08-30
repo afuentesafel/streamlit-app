@@ -4,6 +4,9 @@ import openpyxl
 from openpyxl import Workbook
 from io import BytesIO
 
+# Configuración de la página
+st.set_page_config(page_title="Apps Tienda Pauli", layout="centered")
+
 # Función para procesar el archivo CSV y generar el archivo Excel
 def procesar_archivo(file):
     # Leer el archivo CSV
@@ -21,7 +24,7 @@ def procesar_archivo(file):
         envio = row['Título del método de envío']
 
         # Filtros
-        rm = 'Delivery Región Metropolitana' in envio
+        rm = 'Delivery RM' in envio
         r5a = 'Delivery 5ta Región: Viña del Mar, Valparaíso, Concón, Quilpué y Villa Alemana' in envio
         r5b = 'Delivery 5ta Región: Hijuelas, La Calera, La Cruz, Nogales, Quillota, Limache, Olmué' in envio
         r6 = 'Delivery 6ta Región: San Francisco de Mostazal, Machalí, Rancagua, Codegua y Graneros' in envio
@@ -43,12 +46,6 @@ def procesar_archivo(file):
 # Inicializar el estado de la sesión
 if "generar_excel" not in st.session_state:
     st.session_state.generar_excel = False
-
-# Configuración de la página
-st.set_page_config(page_title="Apps Tienda Pauli", layout="centered")
-
-# Título principal
-st.markdown("<h1 style='text-align: center; color: #333;'>Apps Tienda Pauli</h1>", unsafe_allow_html=True)
 
 # Centramos los botones en una sola fila con HTML y CSS
 st.markdown("""
@@ -79,9 +76,8 @@ with col2:
 
 with col3:
     if st.button("🔄 Reiniciar proceso"):
-        # Restablecer el estado sin recargar
+        # Restablecer solo la variable de estado relevante
         st.session_state.generar_excel = False
-        st.session_state.clear()  # Borrar todo el estado
 
 st.markdown('</div>', unsafe_allow_html=True)
 
