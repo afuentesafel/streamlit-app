@@ -53,8 +53,8 @@ st.markdown("""
     .centered {
         display: flex;
         justify-content: center;
-        flex-direction: column;
         align-items: center;
+        flex-direction: column;
         text-align: center;
     }
     .button-container {
@@ -63,7 +63,7 @@ st.markdown("""
         gap: 20px;
         margin-top: 20px;
     }
-    .button-container button {
+    .stButton button {
         font-size: 18px;
         padding: 10px 20px;
     }
@@ -75,7 +75,9 @@ st.markdown("<div class='centered'><h1 style='color: #333;'>Apps Tienda Pauli</h
 
 # Mostrar los botones "Generar Excel" y "Generar PDF"
 st.markdown('<div class="centered"><div class="button-container">', unsafe_allow_html=True)
-col1, col2 = st.columns(2)
+
+# Usamos una sola columna para centrar ambos botones
+col1, col2 = st.columns([1, 1], gap="small")
 
 with col1:
     if st.button("📊 Generar Excel", key="excel"):
