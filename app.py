@@ -4,6 +4,12 @@ import openpyxl
 from openpyxl import Workbook
 from io import BytesIO
 
+# Configuración de la página
+st.set_page_config(page_title="Apps Tienda Pauli", layout="centered")
+
+# Título principal
+st.markdown("<h1 style='text-align: center; color: #333;'>Apps Tienda Pauli</h1>", unsafe_allow_html=True)
+
 # Función para procesar el archivo CSV y generar el archivo Excel
 def procesar_archivo(file):
     # Leer el archivo CSV
@@ -21,7 +27,7 @@ def procesar_archivo(file):
         envio = row['Título del método de envío']
 
         # Filtros
-        rm = 'Delivery Región Metropolitana' in envio
+        rm = 'Delivery RM' in envio
         r5a = 'Delivery 5ta Región: Viña del Mar, Valparaíso, Concón, Quilpué y Villa Alemana' in envio
         r5b = 'Delivery 5ta Región: Hijuelas, La Calera, La Cruz, Nogales, Quillota, Limache, Olmué' in envio
         r6 = 'Delivery 6ta Región: San Francisco de Mostazal, Machalí, Rancagua, Codegua y Graneros' in envio
@@ -40,25 +46,35 @@ def procesar_archivo(file):
     
     return output
 
-# Interfaz de Streamlit
-st.title('Procesador de Pedidos')
+# Mostrar botones de "Generar Excel" y "Generar PDF"
+col1, col2 = st.columns(2)
 
-uploaded_file = st.file_uploader("Sube tu archivo CSV", type="csv")
+with col1:
+    generar_excel = st.button("📊 Generar Excel", key="excel")
 
-if uploaded_file is not None:
+with col2:
+    generar_pdf = st.button("📄 Generar PDF", key="pdf")
+
+# Si se hace clic en "Generar Excel"
+if generar_excel:
+    # Subir el archivo CSV
+    uploaded_file = st.file_uploader("Sube tu archivo CSV", type="csv")
+
     # Pedir la fecha de retiro al usuario
     fecha_retiro = st.text_input("Ingresa la fecha de retiro (dd-mm-aaaa):")
-    
-    if fecha_retiro:
+
+    # Si se sube un archivo y se ingresa la fecha de retiro
+    if uploaded_file and fecha_retiro:
         st.write("Procesando el archivo...")
         excel_file = procesar_archivo(uploaded_file)
-        
-        # Configurar el nombre del archivo usando la fecha de retiro
         nombre_archivo = f"envio_{fecha_retiro}.xlsx"
-        
         st.download_button(
-            label="Descargar archivo procesado",
+            label="Descargar Excel",
             data=excel_file,
             file_name=nombre_archivo,
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
+
+# Botón para reiniciar el proceso
+if st.button("🔄 Reiniciar proceso"):
+    st.experimental_rerun()
