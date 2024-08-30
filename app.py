@@ -4,9 +4,6 @@ import openpyxl
 from openpyxl import Workbook
 from io import BytesIO
 
-# Configuración de la página
-st.set_page_config(page_title="Apps Tienda Pauli", layout="centered")
-
 # Función para procesar el archivo CSV y generar el archivo Excel
 def procesar_archivo(file):
     # Leer el archivo CSV
@@ -47,6 +44,12 @@ def procesar_archivo(file):
 if "generar_excel" not in st.session_state:
     st.session_state.generar_excel = False
 
+# Configuración de la página
+st.set_page_config(page_title="Apps Tienda Pauli", layout="centered")
+
+# Título principal
+st.markdown("<h1 style='text-align: center; color: #333;'>Apps Tienda Pauli</h1>", unsafe_allow_html=True)
+
 # Centramos los botones en una sola fila con HTML y CSS
 st.markdown("""
     <style>
@@ -76,8 +79,9 @@ with col2:
 
 with col3:
     if st.button("🔄 Reiniciar proceso"):
-        # Restablecer solo la variable de estado relevante
+        # Restablecer el estado sin recargar
         st.session_state.generar_excel = False
+        st.session_state.clear()  # Borrar todo el estado
 
 st.markdown('</div>', unsafe_allow_html=True)
 
